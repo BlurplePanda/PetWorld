@@ -43,10 +43,10 @@ import java.io.*;
 public class PetWorld {
 
     // Fields
-    private String[] types = new String[] {"bird", "dinosaur", "dog", "grasshopper",
+    private static final String[] types = new String[] {"bird", "dinosaur", "dog", "grasshopper",
                                            "snake", "tiger", "turtle"};
 
-    private ArrayList<Animal> world = new ArrayList<Animal>();
+    private ArrayList<Animal> world = new ArrayList<>();
     private String animalType;
     private String direction;
     private String speech;

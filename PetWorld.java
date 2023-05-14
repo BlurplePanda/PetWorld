@@ -120,6 +120,8 @@ public class PetWorld {
             else {
                 world.add(new Animal(animalType, x, y));
             }
+            UI.printMessage("Animal added!");
+            addSelected = false;
         }
 
     }
@@ -138,8 +140,11 @@ public class PetWorld {
             }
             /*else if (moveSelected){
                 moveTo(x, y);
-            } else {
-                select it magically*/
+            }*/ else {
+                if (selected != null){selected.unselect();}
+                selected = findAnimal(x, y);
+                if (selected != null){selected.select();}
+            }
         }
 
         this.drawWorld();
@@ -162,7 +167,11 @@ public class PetWorld {
      *     Returns null if there is no such animal.
      */
     public Animal findAnimal(double x, double y){
-        for()
+        for(int i = world.size()-1; i >= 0; i--){
+            if (world.get(i).on(x,y)){
+                return world.get(i);
+            }
+        }
 
         // failed to find any animal that the point was over 
         return null;  

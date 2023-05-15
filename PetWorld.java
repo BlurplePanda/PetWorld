@@ -64,7 +64,7 @@ public class PetWorld {
         UI.addTextField("Direction(r/l)", this::setDirection);
         UI.addButton("Add", this::setToAdd);
         UI.addButton("Delete", this::deleteAnimal);
-        UI.addButton("Move", null);
+        UI.addButton("Move", this::setToMove);
         UI.addButton("Turn", this::turn);
         UI.addTextField("Speech", this::setSpeech);
         UI.addButton("Speak", this::speak);
@@ -108,6 +108,19 @@ public class PetWorld {
 
     }
 
+    /**
+     * Set a boolean indicating whether to move the animal to the mouse
+     */
+    public void setToMove(){
+        if (moveSelected){
+            moveSelected = false;
+            UI.printMessage("Not moving an animal");
+        } else {
+            moveSelected = true;
+            UI.printMessage("Moving an animal");
+        }
+    }
+
     /** Construct a new Animal object of the appropriate type and direction
      *    Do not create an animal if it does not have a type
      *    Adds the animal to the end of the collection.
@@ -137,10 +150,9 @@ public class PetWorld {
         if (mouseAction.equals("released")){
             if(addSelected) {
                 addAnimal(x, y);
-            }
-            /*else if (moveSelected){
-                moveTo(x, y);
-            }*/ else {
+            } else if (moveSelected){
+                move(x, y);
+            } else {
                 if (selected != null){selected.unselect();}
                 selected = findAnimal(x, y);
                 if (selected != null){selected.select();}
@@ -207,14 +219,29 @@ public class PetWorld {
         this.drawWorld();
     }
 
+    /**
+     * Sets text for animal to speak
+     * @param input from gui textfield
+     */
     public void setSpeech(String input){
         speech = input;
     }
 
+    /**
+     * Makes selected animal speak text from textfield
+     */
     public void speak(){
         if(selected != null){
             selected.speak(speech);
         }
+    }
+
+    public void move(double x, double y){
+        if (selected != null){
+            selected.moveTo(x,y);
+            moveSelected = false;
+        }
+
     }
 
     /**

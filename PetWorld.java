@@ -63,7 +63,7 @@ public class PetWorld {
         UI.addButton("Set Animal Type", this::setAnimalType);
         UI.addTextField("Direction(r/l)", this::setDirection);
         UI.addButton("Add", this::setToAdd);
-        UI.addButton("Delete", null);
+        UI.addButton("Delete", this::deleteAnimal);
         UI.addButton("Move", null);
         UI.addButton("Turn", null);
         UI.addTextField("Speech", null);
@@ -187,7 +187,15 @@ public class PetWorld {
     }
 
     // Add here methods to delete, turn, speak, move, load and save
-    /*# YOUR CODE HERE */
+    /**
+     * Method to delete an animal from the world
+     */
+    public void deleteAnimal(){
+        if (selected != null){
+            world.remove(selected);
+        }
+        this.drawWorld();
+    }
 
 
     /**

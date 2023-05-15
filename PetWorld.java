@@ -66,8 +66,8 @@ public class PetWorld {
         UI.addButton("Delete", this::deleteAnimal);
         UI.addButton("Move", null);
         UI.addButton("Turn", this::turn);
-        UI.addTextField("Speech", null);
-        UI.addButton("Speak", null);
+        UI.addTextField("Speech", this::setSpeech);
+        UI.addButton("Speak", this::speak);
         UI.addButton("Quit", UI::quit);
         UI.setMouseListener(this::doMouse);
 
@@ -205,6 +205,16 @@ public class PetWorld {
             selected.turn();
         }
         this.drawWorld();
+    }
+
+    public void setSpeech(String input){
+        speech = input;
+    }
+
+    public void speak(){
+        if(selected != null){
+            selected.speak(speech);
+        }
     }
 
     /**

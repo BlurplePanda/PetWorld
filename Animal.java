@@ -96,7 +96,8 @@ public class Animal {
 
     /** Changes the position of the animal to x and y */
     public void moveTo(double x, double y) {
-        /*# YOUR CODE HERE */
+        imageX = x;
+        imageY = y;
 	
     }
 

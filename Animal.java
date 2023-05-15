@@ -86,7 +86,11 @@ public class Animal {
 
     /** Makes the Animal change the direction it is facing */
     public void turn() {
-        /*# YOUR CODE HERE */	
+        if (direction == "right"){
+            direction = "left";
+        } else if (direction == "left") {
+            direction = "right";
+        }
 	
     }
 

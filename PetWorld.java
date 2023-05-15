@@ -65,7 +65,7 @@ public class PetWorld {
         UI.addButton("Add", this::setToAdd);
         UI.addButton("Delete", this::deleteAnimal);
         UI.addButton("Move", null);
-        UI.addButton("Turn", null);
+        UI.addButton("Turn", this::turn);
         UI.addTextField("Speech", null);
         UI.addButton("Speak", null);
         UI.addButton("Quit", UI::quit);
@@ -197,6 +197,15 @@ public class PetWorld {
         this.drawWorld();
     }
 
+    /**
+     * Method to change the direction an animal is facing
+     */
+    public void turn(){
+        if(selected != null){
+            selected.turn();
+        }
+        this.drawWorld();
+    }
 
     /**
      * Method to get a string from a dialog box with an array options

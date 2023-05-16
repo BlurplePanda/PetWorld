@@ -113,7 +113,7 @@ public class Animal {
 
         UI.eraseRect(boxX, boxY, this.wordsWidth, this.wordsHeight);
         UI.drawRect(boxX, boxY, this.wordsWidth, this.wordsHeight);
-        UI.drawString(words, boxX + 5, boxY + this.wordsHeight/2 + 3);
+        UI.drawString(words, boxX + 5, boxY + this.wordsHeight/2.0 + 3);
 
         UI.sleep(1000);
 

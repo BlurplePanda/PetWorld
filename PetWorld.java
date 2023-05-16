@@ -248,7 +248,6 @@ public class PetWorld {
     public void move(double x, double y){
         if (selected != null){
             selected.moveTo(x,y);
-            moveSelected = false;
         }
 
     }

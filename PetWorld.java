@@ -193,8 +193,17 @@ public class PetWorld {
      *  initialise the world ArrayList and clear the graphics pane. 
      */
     public void startWorld(){
-        world = new ArrayList<>();
-        UI.clearGraphics();
+        boolean confirmed = false;
+        if (world.size()>0) {
+            confirmed = UI.askBoolean("Are you sure you want to lose your animals?");
+        } else {
+            confirmed = true;
+        }
+        if (confirmed){
+            world = new ArrayList<>();
+            UI.clearGraphics();
+        }
+
 
     }
 

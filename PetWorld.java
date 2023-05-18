@@ -261,7 +261,7 @@ public class PetWorld {
      */
     public void saveWorld(){
         try {
-            PrintStream out = new PrintStream(UIFileChooser.save("File for PetWorld"));
+            PrintStream out = new PrintStream("test.txt");
             for (Animal animal : this.world){
                 out.println(animal.toString());
             }
@@ -276,7 +276,7 @@ public class PetWorld {
     public void loadWorld(){
         try {
             this.world.clear();
-            List<String> lines = Files.readAllLines(Path.of(UIFileChooser.open("File for PetWorld")));
+            List<String> lines = Files.readAllLines(Path.of("test.txt"));
             for (String line : lines){
                 Scanner sc = new Scanner(line);
                 String type = sc.next();

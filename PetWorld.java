@@ -61,7 +61,7 @@ public class PetWorld {
         UI.initialise();
         UI.addButton("New", this::startWorld);
         UI.addButton("Save", this::saveWorld);
-        UI.addButton("Open", this::openWorld);
+        UI.addButton("Open", this::loadWorld);
         UI.addButton("Set Animal Type", this::setAnimalType);
         UI.addTextField("Direction(r/l)", this::setDirection);
         UI.addButton("Add", this::setToAdd);
@@ -273,8 +273,20 @@ public class PetWorld {
     /**
      * Method to load world info from file
      */
-    public void openWorld(){
-
+    public void loadWorld(){
+        try {
+            this.world.clear();
+            List<String> lines = Files.readAllLines(Path.of(UIFileChooser.open("File for PetWorld")));
+            for (String line : lines){
+                Scanner sc = new Scanner(line);
+                String type = sc.next();
+                String direction = sc.next();
+                double x = sc.nextDouble();
+                double y = sc.nextDouble();
+                this.world.add(new Animal(type, direction, x, y));
+            }
+        }
+        catch (IOException e){ UI.println("File loading failed: "+e); }
     }
 
     /**

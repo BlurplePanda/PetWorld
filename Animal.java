@@ -137,9 +137,9 @@ public class Animal {
     /** Returns a string description of the animal in a form suitable for
      *  writing to a file in order to recreate the animal
      */
-    /*public String toString() {
-        *//*# YOUR CODE HERE *//*
+    public String toString() {
+        return this.animal+" "+this.direction+" "+this.imageX+" "+this.imageY;
 
-    }*/
+    }
 }
 

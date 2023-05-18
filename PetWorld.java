@@ -261,7 +261,8 @@ public class PetWorld {
      */
     public void saveWorld(){
         try {
-            PrintStream out = new PrintStream("test.txt");
+            String name = UI.askString("What do you want to call your file? (eg \"myWorld\", \"tuesday animals\", etc)");
+            PrintStream out = new PrintStream(name+".txt");
             for (Animal animal : this.world){
                 out.println(animal.toString());
             }
@@ -276,7 +277,7 @@ public class PetWorld {
     public void loadWorld(){
         try {
             this.world.clear();
-            List<String> lines = Files.readAllLines(Path.of("test.txt"));
+            List<String> lines = Files.readAllLines(Path.of(UIFileChooser.open()));
             for (String line : lines){
                 Scanner sc = new Scanner(line);
                 String type = sc.next();
@@ -287,6 +288,7 @@ public class PetWorld {
             }
         }
         catch (IOException e){ UI.println("File loading failed: "+e); }
+        catch (NullPointerException e){ UI.println("You did not choose a file!"); }
     }
 
     /**

@@ -60,6 +60,8 @@ public class PetWorld {
     public void setupGUI(){
         UI.initialise();
         UI.addButton("New", this::startWorld);
+        UI.addButton("Save", this::saveWorld);
+        UI.addButton("Open", this::openWorld);
         UI.addButton("Set Animal Type", this::setAnimalType);
         UI.addTextField("Direction(r/l)", this::setDirection);
         UI.addButton("Add", this::setToAdd);
@@ -245,10 +247,33 @@ public class PetWorld {
         }
     }
 
+    /**
+     * Method to move selected animal to coords x,y
+     */
     public void move(double x, double y){
         if (selected != null){
             selected.moveTo(x,y);
         }
+    }
+
+    /**
+     * Method to save world info to file
+     */
+    public void saveWorld(){
+        try {
+            PrintStream out = new PrintStream(UIFileChooser.save("File for PetWorld"));
+            for (Animal animal : this.world){
+                out.println(animal.toString());
+            }
+            out.close();
+        }
+        catch (IOException e){ UI.println("File saving failed: "+e); }
+    }
+
+    /**
+     * Method to load world info from file
+     */
+    public void openWorld(){
 
     }
 

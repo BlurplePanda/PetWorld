@@ -61,6 +61,9 @@ public class PetWorld {
     private JButton addBtn;
     private JButton moveBtn;
     private JButton typeBtn;
+    private JButton groupBtn;
+    private boolean groupSelected;
+    private ArrayList<Animal> selecteds = new ArrayList<>();
 
     /**
      * User interface has buttons for the actions and text field
@@ -77,6 +80,7 @@ public class PetWorld {
         moveBtn = UI.addButton("Move", this::setToMove);
         UI.addButton("Turn", this::turn);
         UI.addTextField("Speech", this::setSpeech);
+        groupBtn = UI.addButton("Group", this::setToGroup);
         UI.addButton("Speak", this::speak);
         UI.addButton("Quit", UI::quit);
         UI.setMouseMotionListener(this::doMouse);
@@ -137,6 +141,21 @@ public class PetWorld {
             addBtn.setBackground(null);
             moveBtn.setBackground(new Color(139, 72, 246));
             UI.printMessage("Moving an animal");
+        }
+    }
+
+    /**
+     * Set a boolean indicating whether the selection/everything is singular or group mode
+     */
+    public void setToGroup(){
+        if (groupSelected) {
+            groupSelected = false;
+            groupBtn.setBackground(null);
+            UI.printMessage("Selecting singular animals");
+        } else {
+            groupSelected = true;
+            groupBtn.setBackground(new Color(139, 72, 246));
+            UI.printMessage("Selecting multiple animals");
         }
     }
 

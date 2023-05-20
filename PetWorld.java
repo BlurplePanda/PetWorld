@@ -175,9 +175,25 @@ public class PetWorld {
             } else if (moveSelected){
                 move(startX, startY, x, y);
             } else {
-                if (selected != null){selected.unselect();}
-                selected = findAnimal(x, y);
-                if (selected != null){selected.select();}
+                Animal new_selection = findAnimal(x,y);
+                if (selected != null){
+                    if (new_selection != null){
+                        selected.unselect();
+                        if (new_selection == selected){ //not specified in instructions
+                            selected = null;
+                        } else {
+                            selected = new_selection;
+                            selected.select();
+                        }
+                    } else { //not specified in instructions
+                        // if clicking off an animal does anything put it here
+                    }
+                } else {
+                    if (new_selection != null){
+                        selected = new_selection;
+                        selected.select();
+                    }
+                }
             }
         }
 

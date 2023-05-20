@@ -9,9 +9,12 @@
  */
 
 import ecs100.*;
+
+import javax.swing.*;
 import java.util.*;
 import java.nio.file.*;
 import java.io.*;
+import java.awt.Color;
 
 /** The PetWorld program allows the user to create, save, and reload files
  *    specifying a world consisting of a list of animal objects.
@@ -55,6 +58,8 @@ public class PetWorld {
     private Animal selected;
     private double startX; // x pos of mouse when previously clicked
     private double startY; // y pos "
+    private JButton addBtn;
+    private JButton moveBtn;
 
     /**
      * User interface has buttons for the actions and text field
@@ -66,9 +71,9 @@ public class PetWorld {
         UI.addButton("Open", this::loadWorld);
         UI.addButton("Set Animal Type", this::setAnimalType);
         UI.addTextField("Direction(r/l)", this::setDirection);
-        UI.addButton("Add", this::setToAdd);
+        addBtn = UI.addButton("Add", this::setToAdd);
         UI.addButton("Delete", this::deleteAnimal);
-        UI.addButton("Move", this::setToMove);
+        moveBtn = UI.addButton("Move", this::setToMove);
         UI.addButton("Turn", this::turn);
         UI.addTextField("Speech", this::setSpeech);
         UI.addButton("Speak", this::speak);
@@ -104,9 +109,13 @@ public class PetWorld {
     public void setToAdd(){ 
         if (addSelected) {
             addSelected = false;
+            addBtn.setBackground(null);
             UI.printMessage("Not adding an animal");
         } else {
             addSelected = true;
+            moveSelected = false;
+            moveBtn.setBackground(null);
+            addBtn.setBackground(new Color(139, 72, 246));
             UI.printMessage("Adding an animal");
         }
 
@@ -118,9 +127,13 @@ public class PetWorld {
     public void setToMove(){
         if (moveSelected){
             moveSelected = false;
+            moveBtn.setBackground(null);
             UI.printMessage("Not moving an animal");
         } else {
             moveSelected = true;
+            addSelected = false;
+            addBtn.setBackground(null);
+            moveBtn.setBackground(new Color(139, 72, 246));
             UI.printMessage("Moving an animal");
         }
     }
@@ -139,6 +152,7 @@ public class PetWorld {
             }
             UI.printMessage("Animal added!");
             addSelected = false;
+            addBtn.setBackground(null);
         }
 
     }
@@ -261,6 +275,8 @@ public class PetWorld {
             //selected.moveTo(x, y);
             if (selected.on(x1, y1)){
                 selected.moveBy(x2-x1, y2-y1);
+                moveSelected = false;
+                moveBtn.setBackground(null);
             }
         }
     }

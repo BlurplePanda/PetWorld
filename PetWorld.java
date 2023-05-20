@@ -53,6 +53,8 @@ public class PetWorld {
     private boolean addSelected;
     private boolean moveSelected;
     private Animal selected;
+    private double startX; // x pos of mouse when previously clicked
+    private double startY; // y pos "
 
     /**
      * User interface has buttons for the actions and text field
@@ -71,7 +73,7 @@ public class PetWorld {
         UI.addTextField("Speech", this::setSpeech);
         UI.addButton("Speak", this::speak);
         UI.addButton("Quit", UI::quit);
-        UI.setMouseListener(this::doMouse);
+        UI.setMouseMotionListener(this::doMouse);
 
     }
 
@@ -149,11 +151,15 @@ public class PetWorld {
      *  It is easiest to call other methods to actually do the work,
      */
     public void doMouse(String mouseAction, double x, double y) {
+        if (mouseAction.equals("pressed")){
+                startX = x;
+                startY = y;
+        }
         if (mouseAction.equals("released")){
             if(addSelected) {
                 addAnimal(x, y);
             } else if (moveSelected){
-                move(x, y);
+                move(startX, startY, x, y);
             } else {
                 if (selected != null){selected.unselect();}
                 selected = findAnimal(x, y);
@@ -248,11 +254,14 @@ public class PetWorld {
     }
 
     /**
-     * Method to move selected animal to coords x,y
+     * Method to move selected animal
      */
-    public void move(double x, double y){
+    public void move(double x1, double y1, double x2, double y2){
         if (selected != null){
-            selected.moveTo(x,y);
+            //selected.moveTo(x, y);
+            if (selected.on(x1, y1)){
+                selected.moveBy(x2-x1, y2-y1);
+            }
         }
     }
 

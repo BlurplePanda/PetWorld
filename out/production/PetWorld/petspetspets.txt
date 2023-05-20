@@ -1,0 +1,6 @@
+bird left 356.0 212.0
+dog right 762.0 436.0
+dog left 798.0 150.0
+snake right 534.0 468.0
+tiger left 158.0 434.0
+tiger left 137.0 85.0

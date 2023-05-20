@@ -101,6 +101,11 @@ public class Animal {
 	
     }
 
+    public void moveBy(double distX, double distY){
+        imageX += distX;
+        imageY += distY;
+    }
+
     /** Makes the Animal say something in a speech box */
     public void speak(String words) {
         double boxX = this.imageX;

@@ -60,6 +60,7 @@ public class PetWorld {
     private double startY; // y pos "
     private JButton addBtn;
     private JButton moveBtn;
+    private JButton typeBtn;
 
     /**
      * User interface has buttons for the actions and text field
@@ -69,7 +70,7 @@ public class PetWorld {
         UI.addButton("New", this::startWorld);
         UI.addButton("Save", this::saveWorld);
         UI.addButton("Open", this::loadWorld);
-        UI.addButton("Set Animal Type", this::setAnimalType);
+        typeBtn = UI.addButton("Set Animal Type", this::setAnimalType);
         UI.addTextField("Direction(r/l)", this::setDirection);
         addBtn = UI.addButton("Add", this::setToAdd);
         UI.addButton("Delete", this::deleteAnimal);
@@ -92,6 +93,7 @@ public class PetWorld {
         if (type==null ) {return;}
         UI.printMessage("Setting animal type to "+type);
         animalType = type;
+        typeBtn.setText("Current type: "+animalType);
 
     }
 

@@ -55,7 +55,7 @@ public class PetWorld {
     private String speech;
     private boolean addSelected;
     private boolean moveSelected;
-    private Animal selected;
+    //private Animal selected;
     private double startX; // x pos of mouse when previously clicked
     private double startY; // y pos "
     private JButton addBtn;
@@ -63,7 +63,7 @@ public class PetWorld {
     private JButton typeBtn;
     private JButton groupBtn;
     private boolean groupSelected;
-    private ArrayList<Animal> selecteds = new ArrayList<>();
+    private ArrayList<Animal> selected = new ArrayList<>();
 
     /**
      * User interface has buttons for the actions and text field
@@ -152,10 +152,15 @@ public class PetWorld {
             groupSelected = false;
             groupBtn.setBackground(null);
             UI.printMessage("Selecting singular animals");
+            for (Animal a : selected){
+                a.unselect();
+            }
+            selected.clear();
+            this.drawWorld();
         } else {
             groupSelected = true;
             groupBtn.setBackground(new Color(139, 72, 246));
-            UI.printMessage("Selecting multiple animals");
+            UI.printMessage("Selecting multiple animals (changing to singular will clear selections)");
         }
     }
 
@@ -197,22 +202,32 @@ public class PetWorld {
                 move(startX, startY, x, y);
             } else {
                 Animal new_selection = findAnimal(x,y);
-                if (selected != null){
+                if (!selected.isEmpty()){
                     if (new_selection != null){
-                        selected.unselect();
-                        if (new_selection == selected){ //not specified in instructions
-                            selected = null;
+                        if (groupSelected){
+                            if (selected.contains(new_selection)) {
+                                selected.remove(new_selection);
+                            } else {
+                                new_selection.select();
+                                selected.add(new_selection);
+                            }
                         } else {
-                            selected = new_selection;
-                            selected.select();
+                            selected.get(0).unselect();
+                            if (new_selection == selected.get(0)) { //not specified in instructions
+                                selected.remove(0);
+                            } else {
+                                selected.remove(0);
+                                selected.add(0, new_selection);
+                                selected.get(0).select();
+                            }
                         }
                     } else { //not specified in instructions
                         // if clicking off an animal does anything put it here
                     }
                 } else {
                     if (new_selection != null){
-                        selected = new_selection;
-                        selected.select();
+                        selected.add(new_selection);
+                        selected.get(0).select();
                     }
                 }
             }
@@ -271,8 +286,8 @@ public class PetWorld {
      * Method to delete an animal from the world
      */
     public void deleteAnimal(){
-        if (selected != null){
-            world.remove(selected);
+        for (Animal a : selected) {
+            world.remove(a);
         }
         this.drawWorld();
     }
@@ -281,8 +296,8 @@ public class PetWorld {
      * Method to change the direction an animal is facing
      */
     public void turn(){
-        if(selected != null){
-            selected.turn();
+        for (Animal a : selected){
+            a.turn();
         }
         this.drawWorld();
     }
@@ -299,8 +314,8 @@ public class PetWorld {
      * Makes selected animal speak text from textfield
      */
     public void speak(){
-        if(selected != null){
-            selected.speak(speech);
+        for (Animal a : selected){
+            a.speak(speech);
         }
     }
 
@@ -308,14 +323,14 @@ public class PetWorld {
      * Method to move selected animal
      */
     public void move(double x1, double y1, double x2, double y2){
-        if (selected != null){
+        /*if (selected != null){
             //selected.moveTo(x, y);
             if (selected.on(x1, y1)){
                 selected.moveBy(x2-x1, y2-y1);
                 moveSelected = false;
                 moveBtn.setBackground(null);
             }
-        }
+        }*/
     }
 
     /**

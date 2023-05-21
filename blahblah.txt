@@ -1,0 +1,4 @@
+bird left 416.0 356.0
+dog left 798.0 150.0
+tiger left 158.0 434.0
+dog right 522.0 509.0

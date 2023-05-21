@@ -81,8 +81,8 @@ public class PetWorld {
         moveBtn = UI.addButton("Move", this::setToMove);
         UI.addButton("Turn", this::turn);
         UI.addTextField("Speech", this::setSpeech);
-        groupBtn = UI.addButton("Group", this::setToGroup);
         UI.addButton("Speak", this::speak);
+        groupBtn = UI.addButton("Group", this::setToGroup);
         UI.addButton("Quit", UI::quit);
         UI.setMouseMotionListener(this::doMouse);
 
